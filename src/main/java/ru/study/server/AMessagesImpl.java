@@ -2,6 +2,7 @@ package ru.study.server;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.*;
+import javax.faces.component.FacesComponent;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,25 +12,12 @@ import java.util.List;
 @ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
 public class AMessagesImpl extends AMessages {
 
-    @PostConstruct
-    public void initialize() {
-        ArrayList<String> msgs1 = new ArrayList<>();
-        msgs1.add("111");
-        msgs1.add("222");
-        msgs1.add("333");
-        messages.put("Anton", msgs1);
-        ArrayList<String> msgs2 = new ArrayList<>();
-        msgs2.add("444");
-        msgs2.add("555");
-        messages.put("Olga", msgs2);
-    }
-
     @Override
     public String getMessage(String user, int index) throws InvalidParameterException {
         System.out.println("start AMessagesImpl");
         System.out.println("messages: " + messages);
         if (messages.get(user) == null || messages.get(user).size() - 1 < index)
-            throw new InvalidParameterException("There is no such message.");
+            return "There is no such message.";
 
         return messages.get(user).get(index);
     }

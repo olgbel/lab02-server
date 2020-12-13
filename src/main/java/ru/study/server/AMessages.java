@@ -1,6 +1,7 @@
 package ru.study.server;
 
 import javax.ejb.Local;
+import javax.ejb.Remote;
 import java.io.Serializable;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.Map;
  *
  * @author Ю.Д.Заковряшин, 2019-2020
  */
-@Local
+@Remote
 public abstract class AMessages implements Serializable {
 
     /**

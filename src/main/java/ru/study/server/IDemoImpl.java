@@ -10,14 +10,13 @@ import javax.jws.soap.SOAPBinding;
 @WebService(serviceName = "IDemoService", name = "IDemo")
 @Remote(IDemo.class)
 @SOAPBinding(style = SOAPBinding.Style.RPC)
-@Singleton
 public class IDemoImpl implements IDemo {
 
     public IDemoImpl() {
     }
 
     @EJB(name = "AMessages")
-    private AMessages aMessages;
+    private final AMessages aMessages = new AMessagesImpl();
 
     @WebMethod
     @Override
