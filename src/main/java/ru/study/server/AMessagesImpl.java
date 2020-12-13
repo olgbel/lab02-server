@@ -25,17 +25,14 @@ public class AMessagesImpl extends AMessages {
             return false;
 
         if (messages.get(user) == null) {
-            MessageList messageList = new MessageList();
-            messageList.setMessages(new ArrayList<String>() {{
+            MessageList messageList = new MessageList(new ArrayList<String>() {{
                 add(message);
             }});
             messages.put(user, messageList);
         } else {
             List<String> userMessages = messages.get(user).getMessages();
             userMessages.add(message);
-            MessageList messageList = new MessageList();
-            messageList.setMessages(userMessages);
-            messages.put(user, messageList);
+            messages.put(user, new MessageList(userMessages));
         }
         return true;
     }

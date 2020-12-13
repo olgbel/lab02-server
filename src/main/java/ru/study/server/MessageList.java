@@ -8,6 +8,14 @@ import java.util.List;
 public class MessageList {
     private List<String> messages;
 
+    public MessageList() {
+
+    }
+
+    public MessageList(List<String> messages) {
+        this.messages = messages;
+    }
+
     @XmlElement(name = "message")
     public List<String> getMessages() {
         return messages;
