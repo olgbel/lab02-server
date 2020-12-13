@@ -1,8 +1,6 @@
 package ru.study.server;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.*;
-import javax.faces.component.FacesComponent;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +12,10 @@ public class AMessagesImpl extends AMessages {
 
     @Override
     public String getMessage(String user, int index) throws InvalidParameterException {
-        System.out.println("start AMessagesImpl");
-        System.out.println("messages: " + messages);
-        if (messages.get(user) == null || messages.get(user).size() - 1 < index)
+        if (messages.get(user) == null || messages.get(user).getMessages().size() - 1 < index)
             return "There is no such message.";
 
-        return messages.get(user).get(index);
+        return messages.get(user).getMessages().get(index);
     }
 
     @Override
@@ -28,20 +24,24 @@ public class AMessagesImpl extends AMessages {
         if (isEmptyOrNull(user) || isEmptyOrNull(message))
             return false;
 
-        if (messages.get(user) == null)
-            messages.put(user, new ArrayList<String>() {{
+        if (messages.get(user) == null) {
+            MessageList messageList = new MessageList();
+            messageList.setMessages(new ArrayList<String>() {{
                 add(message);
             }});
-        else {
-            ArrayList<String> userMessages = messages.get(user);
+            messages.put(user, messageList);
+        } else {
+            List<String> userMessages = messages.get(user).getMessages();
             userMessages.add(message);
-            messages.put(user, userMessages);
+            MessageList messageList = new MessageList();
+            messageList.setMessages(userMessages);
+            messages.put(user, messageList);
         }
         return true;
     }
 
     @Override
-    public List<String> getMessageList(String user) {
+    public MessageList getMessageList(String user) {
         return messages.get(user);
     }
 

@@ -2,6 +2,10 @@ package ru.study.server;
 
 import javax.ejb.Local;
 import javax.ejb.Remote;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -15,13 +19,14 @@ import java.util.Map;
  * @author Ю.Д.Заковряшин, 2019-2020
  */
 @Remote
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class AMessages implements Serializable {
 
     /**
      * Коллекция сообщений типа Map, в которой ключ представлен логином
      * пользователя, а значение - списком сообщений.
      */
-    protected Map<String, ArrayList<String>> messages;
+    protected Map<String, MessageList> messages;
 
     /**
      * Конструктор по умолчанию.
@@ -34,7 +39,7 @@ public abstract class AMessages implements Serializable {
      * Метод возвращает сообщение заданного пользователя по индексу сообщения
      * (порядковому номеру).
      *
-     * @param user логин пользователя.
+     * @param user  логин пользователя.
      * @param index индекс сообщения
      * @return сообщение пользователя или null, если такого пользователя нет или
      * у него нет сообщения с данным индексом.
@@ -46,7 +51,7 @@ public abstract class AMessages implements Serializable {
      * пользователя с указанным логином нет в коллекции, то создаётся новый
      * элемент коллекции с ключом с заданным параметром login.
      *
-     * @param user логин пользователя.
+     * @param user    логин пользователя.
      * @param message сообщение пользователя.
      * @return значение true в случае, если сообщение успешно добавлено, false -
      * в случае, когда логин пользователя или сообщение являются недопустимыми.
@@ -55,10 +60,10 @@ public abstract class AMessages implements Serializable {
 
     /**
      * Метод возвращает коллекци сообщений данного пользователя.
+     *
      * @param user логин пользователя.
      * @return коллекция сообщений пользователя.
      */
-    public abstract List<String> getMessageList(String user);
-
+    public abstract MessageList getMessageList(String user);
 }
 

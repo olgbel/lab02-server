@@ -22,7 +22,7 @@ public interface IDemo {
      * случае, когда логин пользователя или сообщение равны null или пусты.
      */
     @WebMethod
-    public boolean add(@WebParam(name = "user") String user, @WebParam(name = "message") String message);
+    boolean add(@WebParam(name = "user") String user, @WebParam(name = "message") String message);
 
     /**
      * Метод позволяет получить сообщение заданного пользователя по его индексу
@@ -37,7 +37,7 @@ public interface IDemo {
      * таким индексом.
      */
     @WebMethod
-    public String getMessage(@WebParam(name = "user") String user, @WebParam(name = "index") int index);
+    String getMessage(@WebParam(name = "user") String user, @WebParam(name = "index") int index);
 
     /**
      * Метод позволяет получить коллекцию всех сообщений заданного пользователя.
@@ -45,7 +45,7 @@ public interface IDemo {
      * @param user логин пользователя.
      * @return коллекция сообщений заданного пользователя.
      */
-//    @WebMethod
-//    List<String> getAllMessage(@WebParam(name = "user") String user);
+    @WebMethod
+    MessageList getAllMessage(@WebParam(name = "user") String user);
 }
 

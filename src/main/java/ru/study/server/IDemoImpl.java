@@ -6,6 +6,7 @@ import javax.ejb.Singleton;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
+import java.util.List;
 
 @WebService(serviceName = "IDemoService", name = "IDemo")
 @Remote(IDemo.class)
@@ -31,8 +32,11 @@ public class IDemoImpl implements IDemo {
         return aMessages.getMessage(user, index);
     }
 
-//    @Override
-//    public List<String> getAllMessage(String user) {
-//        return aMessages.getMessageList(user);
-//    }
+    @WebMethod
+    @Override
+    public MessageList getAllMessage(String user) {
+        MessageList messageList = new MessageList();
+        messageList.setMessages(aMessages.getMessageList(user).getMessages());
+        return messageList;
+    }
 }
